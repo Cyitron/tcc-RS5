@@ -47,7 +47,7 @@ module testbench
 `endif
 
     localparam int           MEM_WIDTH       = 65_536;
-    localparam string        BIN_FILE        = "../app/riscv-tests/test.bin";
+    localparam string        BIN_FILE        = "../app/hello/hello.bin";
 
     localparam int           i_cnt = 1;
 

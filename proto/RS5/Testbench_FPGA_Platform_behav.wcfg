@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
-      <ZoomEndTime time="28.300001 us"></ZoomEndTime>
-      <Cursor1Time time="3.400000 us"></Cursor1Time>
+      <ZoomStartTime time="738.260 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,599.565 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="242"></NameColumnWidth>
-      <ValueColumnWidth column_width="110"></ValueColumnWidth>
+      <ValueColumnWidth column_width="106"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="31" />
+   <WVObjectSize size="27" />
    <wvobject type="logic" fp_name="/Testbench_FPGA_Platform/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -62,8 +62,8 @@
       <obj_property name="ObjectShortName">pc_o[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/Testbench_FPGA_Platform/dut/dut/decoder1/instruction_operation_o">
-      <obj_property name="ElementShortName">instruction_operation_o[46:0]</obj_property>
-      <obj_property name="ObjectShortName">instruction_operation_o[46:0]</obj_property>
+      <obj_property name="ElementShortName">instruction_operation_o[56:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction_operation_o[56:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/Testbench_FPGA_Platform/dut/dut/CSRBank1/mie">
       <obj_property name="ElementShortName">mie[31:0]</obj_property>
@@ -80,11 +80,6 @@
    <wvobject type="logic" fp_name="/Testbench_FPGA_Platform/dut/Peripherals1/BTND_debounced">
       <obj_property name="ElementShortName">BTND_debounced</obj_property>
       <obj_property name="ObjectShortName">BTND_debounced</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/Testbench_FPGA_Platform/dut/Peripherals1/irq">
-      <obj_property name="ElementShortName">irq[2:1]</obj_property>
-      <obj_property name="ObjectShortName">irq[2:1]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/Testbench_FPGA_Platform/dut/Peripherals1/button_irq">
       <obj_property name="ElementShortName">button_irq</obj_property>
@@ -123,21 +118,9 @@
       <obj_property name="ElementShortName">cpu_data_out[31:0]</obj_property>
       <obj_property name="ObjectShortName">cpu_data_out[31:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/Testbench_FPGA_Platform/dut/Peripherals1/UART_ready_rx">
-      <obj_property name="ElementShortName">UART_ready_rx</obj_property>
-      <obj_property name="ObjectShortName">UART_ready_rx</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="/Testbench_FPGA_Platform/dut/Peripherals1/UART_RX_irq">
       <obj_property name="ElementShortName">UART_RX_irq</obj_property>
       <obj_property name="ObjectShortName">UART_RX_irq</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/Testbench_FPGA_Platform/dut/Peripherals1/UART_data_rx_reg">
-      <obj_property name="ElementShortName">UART_data_rx_reg[7:0]</obj_property>
-      <obj_property name="ObjectShortName">UART_data_rx_reg[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/Testbench_FPGA_Platform/dut/Peripherals1/UART_data_rx">
-      <obj_property name="ElementShortName">UART_data_rx[7:0]</obj_property>
-      <obj_property name="ObjectShortName">UART_data_rx[7:0]</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/Testbench_FPGA_Platform/dut/plic1/iack_i">
       <obj_property name="ElementShortName">iack_i</obj_property>
