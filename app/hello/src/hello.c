@@ -1,3 +1,4 @@
+#include "../../common/include/riscv-csr.h"
 #include <stdio.h>
 
 int main()
