@@ -5,5 +5,8 @@ int main()
 {
     printf("\nHello World!\n");
 
+    uint64_t minstret_value = csr_read_minstret();
+    printf("minstret: %llu\n", minstret_value);
+
     return 0;
 }
