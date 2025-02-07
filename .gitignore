@@ -1,4 +1,3 @@
-debug
 transcript
 vsim*
 work
@@ -19,7 +18,6 @@ Vtb_wrapper*
 *.hw
 *.runs
 *.sdb
-sim/debug/**
 *.cnt
 *.hex
 *.lst
