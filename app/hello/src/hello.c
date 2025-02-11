@@ -35,7 +35,7 @@ int main()
     // read_cycle_value = csr_read_cycle();
     
     // Imprime o valor lido. Usamos PRIu64 para portabilidade.
-    printf("mcycle: %llu", mcycle_value);
+    printf("mcycle: %llu", mcycle_value + 1);
     //printf("read cycle: %llu", read_cycle_value);
 
     return 0;
