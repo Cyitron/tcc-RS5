@@ -28,15 +28,14 @@ int main()
     }
 
     // Lê o contador de ciclos (mcycle)
-    uint64_t mcycle_value;
+    uint32_t mcycle_value;
     mcycle_value = csr_read_mcycle();
-    mcycle_value = 0x55;
 
     // uint_xlen_t read_cycle_value;
     // read_cycle_value = csr_read_cycle();
     
-    // Imprime o valor lido. Usamos PRIu64 para portabilidade.
-    printf("mcycle: %llu", mcycle_value);
+    // Imprime o valor lido.
+    printf("mcycle: %lu", mcycle_value);
     //printf("read cycle: %llu", read_cycle_value);
 
     return 0;
