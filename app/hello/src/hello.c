@@ -13,7 +13,7 @@ static inline void print_binary(uint32_t num) {
 
 int main()
 {
-    //uint64_t minstret_data = csr_read_minstret();
+    //uint64_t csr_read_mcycle = csr_read_minstret();
     printf("Hello World!\n");
 
     uint32_t data = 0xFFFFFFFF;
@@ -26,6 +26,12 @@ int main()
         // Desloca os bits para a esquerda (inserindo 0 no bit menos significativo)
         data = data << 1;
     }
+
+    // Lê o contador de ciclos (mcycle)
+    uint64_t mcycle_value = csr_read_mcycle();
+    
+    // Imprime o valor lido. Usamos PRIu64 para portabilidade.
+    printf("mcycle: %" PRIu64 "\n", mcycle_value);
 
     return 0;
 }
