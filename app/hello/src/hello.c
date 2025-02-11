@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 static inline void print_binary(uint32_t num) {
-    for (int i = 31; i >= 0; i--) {
+    for (int i = 32; i >= 0; i--) {
         // Verifica se o bit i está setado e imprime '1' ou '0'
         putchar((num & (1u << i)) ? '1' : '0');
     }
@@ -35,8 +35,8 @@ int main()
     read_cycle_value = csr_read_cycle();
     
     // Imprime o valor lido.
-    printf("mcycle: %lu", mcycle_value);
-    printf("read cycle: %lu", read_cycle_value);
+    printf("\nmcycle: %lu", mcycle_value);
+    printf("\nread cycle: %lu", read_cycle_value);
 
     return 0;
 }
