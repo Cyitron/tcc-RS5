@@ -1,17 +1,31 @@
 #include "../../common/include/riscv-csr.h"
 #include <stdio.h>
 #include <inttypes.h>
+#include <stdint.h>
+
+static inline void print_binary(uint32_t num) {
+    for (int i = 31; i >= 0; i--) {
+        // Verifica se o bit i está setado e imprime '1' ou '0'
+        putchar((num & (1u << i)) ? '1' : '0');
+    }
+    putchar('\n');
+}
 
 int main()
 {
-    uint64_t minstret_value = csr_read_minstret();
+    //uint64_t minstret_data = csr_read_minstret();
     printf("Hello World!\n");
 
-    // Teste imprimindo um valor fixo
-    printf("Teste de uint64_t: %" PRIu64 "\n", (uint64_t) 1234567890);
+    uint32_t data = 0xFFFFFFFF;
+    
+    // Loop que continua enquanto 'data' for diferente de 0
+    while (data != 0) {
+        // Imprime a representação binária de 'data'
+        print_binary(data);
 
-    // Agora imprime o minstret
-    printf("minstret: %" PRIu64 "\n", minstret_value);
+        // Desloca os bits para a esquerda (inserindo 0 no bit menos significativo)
+        data = data << 1;
+    }
 
     return 0;
 }
