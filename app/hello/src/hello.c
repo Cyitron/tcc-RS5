@@ -31,12 +31,12 @@ int main()
     uint32_t mcycle_value;
     mcycle_value = csr_read_mcycle();
 
-    // uint_xlen_t read_cycle_value;
-    // read_cycle_value = csr_read_cycle();
+    uint_xlen_t read_cycle_value;
+    read_cycle_value = csr_read_cycle();
     
     // Imprime o valor lido.
     printf("mcycle: %lu", mcycle_value);
-    //printf("read cycle: %llu", read_cycle_value);
+    printf("read cycle: %lu", read_cycle_value);
 
     return 0;
 }
