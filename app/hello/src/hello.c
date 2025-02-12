@@ -24,22 +24,27 @@ static inline void print_binary(uint32_t num) {
     putchar('\n');
 }
 
+//=============nop==============//
+static inline void nop(){
+    __asm__ volatile("nop");
+}
+
 int main()
 {
-    //nop();
+    nop();
 
-    //printf("Hello World!\n");
+    printf("Hello World!\n");
 
-    // uint32_t data = 0xFFFFFFFF;
+    uint32_t data = 0xFFFFFFFF;
     
-    // // Loop que continua enquanto 'data' for diferente de 0
-    // while (data != 0) {
-    //     // Imprime a representação binária de 'data'
-    //     print_binary(data);
+    // Loop que continua enquanto 'data' for diferente de 0
+    while (data != 0) {
+        // Imprime a representação binária de 'data'
+        print_binary(data);
 
-    //     // Desloca os bits para a esquerda (inserindo 0 no bit menos significativo)
-    //     data = data << 1;
-    // }
+        // Desloca os bits para a esquerda (inserindo 0 no bit menos significativo)
+        data = data << 1;
+    }
 
     // Lê o contador de ciclos (mcycle)
     mcycle_value = csr_read_mcycle();
@@ -86,7 +91,3 @@ int main()
     return 0;
 }
 
-//==========================//
-// static inline void nop(){
-//     __asm__ volatile("nop");
-// }
