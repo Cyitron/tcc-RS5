@@ -78,12 +78,13 @@ int main()
     printf("\nmcycle: %lu", mcycle_value);
     printf("\nRD cycle: %lu", read_cycle_value);
     printf("\nminstret: %lu", m_inst_retired);
+    printf("\ninstret: %lu", instret);
+    //abaixo ainda nao mostraram valores, entender porque
     printf("\nmhpmcounter3: %lu", mhpmcounter3);
     printf("\nmhpmcounter4: %lu", mhpmcounter4);
     printf("\nmhpmcounter31: %lu", mhpmcounter31);
     printf("\nmepc: %lu", mpec);
     printf("\nuepc: %lu", upec);
-    printf("\ninstret: %lu", instret);
     printf("\nhpmcounter3: %lu", hpmcounter3);
     printf("\nhpmcounter4: %lu", hpmcounter4);
     printf("\nhpmcounter31: %lu", hpmcounter31);
