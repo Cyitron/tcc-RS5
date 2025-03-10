@@ -1,3 +1,7 @@
+/* 
+    documentar o código
+*/
+
 #include "../../common/include/riscv-csr.h"
 #include <stdio.h>
 #include <inttypes.h>

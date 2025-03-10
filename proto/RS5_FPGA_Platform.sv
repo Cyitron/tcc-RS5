@@ -63,7 +63,7 @@ module RS5_FPGA_Platform
                 enable_plic         = 1'b1;
                 enable_peripherals  = 1'b0;
             end
-            else begin
+            else /*if (cpu_data_address[31:28] < 4'h16)*/ begin
                 enable_ram          = 1'b0;
                 enable_rtc          = 1'b0;
                 enable_plic         = 1'b0;
@@ -209,5 +209,15 @@ module RS5_FPGA_Platform
         .interrupt_req_o(irq_peripherals),
         .interrupt_ack_i(iack_peripherals)
     );
+
+    sniffer Sniffer1(
+    .clk            (clk),
+    .reset_n        (reset_n),
+    .enable_i       (enable_peripherals),
+    .write_enable_i (cpu_write_enable),
+    .data_address_i (cpu_data_address),
+    .data_i         (cpu_data_out),
+    .data_o         (data_peripherals)
+);
 
 endmodule
