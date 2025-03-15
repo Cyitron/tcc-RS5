@@ -1,30 +1,23 @@
 /* sniffer.sv
 top archive: RS5_FPGA_Platform.sv
 
+top archive of sniffer_dp.sv and sniffer_fsm.sv
 */
 
 module sniffer(
-    .clk,
-    .reset_n,
-    .enable_i,
-    .write_enable_i,
-    .data_address_i,
-    .data_i,
-    .data_o
-);
-
-    input  logic            clk;
-    input  logic            reset_n;
-    input  logic            enable_i;
-    input  logic [3:0]      write_enable_i;
-    input  logic [31:0]     data_address_i;
-    input  logic [31:0]     data_i;
-    output logic [31:0]     data_o;  
+    input  logic            clk,
+    input  logic            reset_n,
+    input  logic            enable_i,
+    input  logic [3:0]      write_enable_i,
+    input  logic [31:0]     data_address_i,
+    input  logic [31:0]     data_i,
+    output logic [31:0]     data_o
+);  
 
     logic w_ena_1;
     logic w_ena_2;
 
-    sniffer_dp (
+    sniffer_dp sniffer_dp(
         .clk            (clk),
         .reset_n        (reset_n),
         .data_i         (data_i),
@@ -34,7 +27,7 @@ module sniffer(
 
     );
 
-    sniffer_fsm (
+    sniffer_fsm sniffer_fsm(
         .clk            (clk),
         .reset_n        (reset_n),
         .ena_1          (w_ena_1),
