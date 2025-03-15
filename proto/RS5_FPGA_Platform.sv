@@ -45,25 +45,25 @@ module RS5_FPGA_Platform
 
     always_comb begin
         if (cpu_operation_enable) begin
-            if (cpu_data_address[31:28] < 4'h2) begin
+            if (cpu_data_address[31:28] < 4'h2) begin // primeiros 512MB
                 enable_ram          = 1'b1;
                 enable_rtc          = 1'b0;
                 enable_plic         = 1'b0;
                 enable_peripherals  = 1'b0;
             end
-            else if (cpu_data_address[31:28] < 4'h3) begin
+            else if (cpu_data_address[31:28] < 4'h3) begin // 512MB
                 enable_ram          = 1'b0;
                 enable_rtc          = 1'b1;
                 enable_plic         = 1'b0;
                 enable_peripherals  = 1'b0;
             end
-            else if (cpu_data_address[31:28] < 4'h8) begin
+            else if (cpu_data_address[31:28] < 4'h8) begin // 1GB
                 enable_ram          = 1'b0;
                 enable_rtc          = 1'b0;
                 enable_plic         = 1'b1;
                 enable_peripherals  = 1'b0;
             end
-            else /*if (cpu_data_address[31:28] >= 4'h8)*/ begin
+            else /*if (cpu_data_address[31:28] >= 4'h8)*/ begin // 2GB 
                 enable_ram          = 1'b0;
                 enable_rtc          = 1'b0;
                 enable_plic         = 1'b0;
@@ -213,13 +213,14 @@ module RS5_FPGA_Platform
 
     /* criação de Gabriel Lencina */
     sniffer Sniffer1(
-    .clk            (clk),
-    .reset_n        (reset_n),
-    .enable_i       (enable_peripherals),
-    .write_enable_i (cpu_write_enable),
-    .data_address_i (cpu_data_address),
-    .data_i         (cpu_data_out),
-    .data_o         (data_peripherals)
+    .clk                    (clk),
+    .reset_n                (reset_n),
+    .enable_i               (enable_peripherals),
+    .mem_operation_enable_o (cpu_operation_enable),
+    .write_enable_i         (cpu_write_enable),
+    .data_address_i         (cpu_data_address),
+    .data_i                 (cpu_data_out),
+    .data_o                 (data_peripherals)
 );
 
 endmodule

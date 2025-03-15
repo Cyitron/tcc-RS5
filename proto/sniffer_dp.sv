@@ -1,20 +1,12 @@
 module sniffer_dp (
-    .clk,
-    .reset_n,
-    .data_i,
-    .data_o,
-    .ena_1,
-    .ena_2
+    input  logic            clk,
+    input  logic            reset_n,
+    input  logic [31:0]     data_i,
+    output logic [31:0]     data_o,
+    input  logic            ena_1,
+    input  logic            ena_2
 
 );
-
-    input  logic            clk;
-    input  logic            reset_n;
-    input  logic [31:0]     data_i;
-    output logic [31:0]     data_o;
-    input  logic            ena_1;
-    input  logic            ena_2;
-
     
     logic [31:0] data_snf_1;
     logic [31:0] data_snf_2;
