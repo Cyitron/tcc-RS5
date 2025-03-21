@@ -67,7 +67,7 @@ module tb_sniffer;
 
     // Simula o processador lendo o dado pronto:
     // Para este teste, podemos alterar o data_address_i para o endereço que indica a leitura.
-    data_address_i = 32'h80000002;   // exemplo de endereço que sinaliza a leitura concluída
+    data_address_i = 32'h80000001;   // exemplo de endereço que sinaliza a leitura concluída
     #10;
 
     // Exibe o resultado no simulador
