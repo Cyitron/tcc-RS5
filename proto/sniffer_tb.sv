@@ -51,14 +51,16 @@ module tb_sniffer;
     enable_i = 1;
     write_enable_i = 4'b1111;
     data_address_i = 32'h70000000;  // endereço fora da faixa (menos que 4'h8 no nibble MSB)
-    data_i = 32'hA5A5A5A5;
+    data_i = 32'h12345678;
+    #1
+    $display("Data ready  : 0x%h", data_o);
     #10;
 
     // Agora, simula uma operação de escrita direcionada ao sniffer:
     // Sinaliza que o processador está escrevendo para o periférico, 
     // que deve capturar e inverter o dado.
     data_address_i = 32'h80000000;  // endereço com nibble MSB >= 8
-    data_i = 32'hA5A5A5A5;
+    data_i = 32'h12345678;
     write_enable_i = 4'b0001;        // operação de escrita válida
     #10;
 
@@ -67,13 +69,13 @@ module tb_sniffer;
 
     // Simula o processador lendo o dado pronto:
     // Para este teste, podemos alterar o data_address_i para o endereço que indica a leitura.
-    data_address_i = 32'h80000001;   // exemplo de endereço que sinaliza a leitura concluída
-    #10;
-    $display("Data Out  : 0x%h", data_o);
+    data_address_i = 32'h80000002;   // exemplo de endereço que sinaliza a leitura concluída
+    #1;
+    $display("Data ready  : 0x%h", data_o);
 
 
     data_address_i = 32'h80000001;
-
+    #1
     // Exibe o resultado no simulador
     $display("Data In   : 0x%h", data_i);
     $display("Data Out  : 0x%h", data_o);
