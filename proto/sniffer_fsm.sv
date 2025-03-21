@@ -78,12 +78,11 @@ module sniffer_fsm (
     endcase
   end
 
-    always @(posedge clk) begin
-        if (reset_n == 0) begin
+    always_ff @(posedge clk) begin
+        if (reset_n == 0)
             state <= S0_GET_DATA;
         else
             state <= next_state;
-        end
     end
 
 endmodule
