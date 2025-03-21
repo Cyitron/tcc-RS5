@@ -80,10 +80,9 @@ module sniffer_fsm (
 
     always @(posedge clk) begin
         if (reset_n == 0) begin
-            state = s_0;
-        end
-        else begin
-            state = next_state;
+            state <= S0_GET_DATA;
+        else
+            state <= next_state;
         end
     end
 
