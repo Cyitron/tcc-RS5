@@ -13,6 +13,7 @@ module sniffer(
     logic gen_data_ce;
     logic new_data_ce;
     logic av_data;
+    logic seletor_hab;
 
     // Instanciação do datapath
     sniffer_dp sniffer_dp_inst (
