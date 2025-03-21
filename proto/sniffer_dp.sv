@@ -47,10 +47,10 @@ module sniffer_dp (
     // Multiplexador para selecionar a saída
     // Se av_data estiver ativo, envia o dado invertido; caso contrário, envia uma sequência padrão (aqui 32'b0).
     always_comb begin
-    if (seletor_hab)
-        data_o = data_ready;
-    else
-        data_o = new_data;
+        if (seletor_hab)
+            data_o = data_ready;
+        else
+            data_o = new_data;
     end
 
 endmodule

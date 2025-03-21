@@ -69,6 +69,10 @@ module tb_sniffer;
     // Para este teste, podemos alterar o data_address_i para o endereço que indica a leitura.
     data_address_i = 32'h80000002;   // exemplo de endereço que sinaliza a leitura concluída
     #10;
+    $display("Data Out  : 0x%h", data_o);
+
+
+    data_address_i = 32'h80000001;
 
     // Exibe o resultado no simulador
     $display("Data In   : 0x%h", data_i);
