@@ -1,32 +1,82 @@
 module sniffer_fsm (
     input  logic            clk,
     input  logic            reset_n,
-    output logic            ena_1,
-    output logic            ena_2,
-    input  logic[31:0]      data_address_i,
+    output logic            get_data_ce,  // Sinal para o datapath capturar o dado do processador
+    output logic            gen_data_ce,  // Sinal para o datapath gerar o dado invertido
+    output logic            new_data_ce,  // Sinal que indica que chegou um novo dado
+    output logic            av_data,      // Sinal para avisar que o dado está pronto para leitura
+    input  logic [3:0]      write_enable_i,
+    input  logic [31:0]     data_address_i,
     input  logic            enable_i
-
 );
 
-    /* flip-flop com chip_enable para saber que teve escrita no segundo registrador e depois
-    software faz pooling no flip-flop depois de escrever o dado do periferico
+  // Definindo os estados da FSM com um tipo enumerado
+  typedef enum logic [1:0] {
+      S0_GET_DATA,  // Estado de captura de dado
+      S1_GEN_DATA,  // Estado de geração do dado invertido e sinalização de novo dado
+      S2_WAIT_READ, // Estado de espera pela leitura do processador
+      S3_RESET      // Estado que reseta a sinalização de dado pronto
+  } state_t;
 
-    mux seletor saida tristate
+  state_t state, next_state;
 
-    */
+  // Bloco combinacional para calcular o próximo estado e gerar as saídas
+  always_comb begin
+    // Valores default dos sinais de controle
+    get_data_ce = 0;
+    gen_data_ce = 0;
+    new_data_ce = 0;
+    av_data     = 0;
+    next_state  = state; // Por padrão, mantém o estado atual
 
-    
+    case (state)
+      S0_GET_DATA: begin
+        // Sempre captura o dado do processador
+        get_data_ce = 1;
+        // Se a operação for direcionada ao sniffer, avança para S1
+        if ((data_address_i[31:28] >= 4'h8) &&
+            (enable_i == 1) &&
+            (write_enable_i != 4'b0000))
+          next_state = S1_GEN_DATA;
+        else
+          next_state = S0_GET_DATA;
+      end
 
-    // testar os 4 bits mais significativos são maiores que 8 seguidos de 7 zeros 
-    
+      S1_GEN_DATA: begin
+        // Sinaliza para gerar o dado invertido e avisa que há novo dado
+        gen_data_ce = 1;
+        new_data_ce = 1;
+        av_data     = 1;
+        // Após gerar o dado, vai para o estado de espera pela leitura
+        next_state = S2_WAIT_READ;
+      end
 
-    reg state;
-    reg next_state;
+      S2_WAIT_READ: begin
+        // Enquanto o processador não confirmar a leitura, permanece em S2.
+        // Aqui, assumimos que o processador sinaliza a leitura concluída
+        // mudando o endereço para 32'h80000002 (ou outra condição definida).
+        if ((data_address_i == 32'h80000002) &&
+            (write_enable_i != 4'b0000) &&
+            (enable_i == 1))
+          next_state = S3_RESET;
+        else
+          next_state = S2_WAIT_READ;
+      end
 
-    localparam s_0         = 2'b00;
-    localparam s_1         = 2'b01;
-    localparam s_2         = 2'b10;
-    localparam s_3         = 2'b11;
+      S3_RESET: begin
+        // Reseta a indicação de dado pronto para leitura
+        av_data = 0;
+        // Pode-se manter new_data_ce ativo se necessário ou desativá-lo, conforme a implementação do datapath
+        new_data_ce = 1; // ou 0, dependendo da lógica desejada
+        // Retorna para S0 para capturar nova operação
+        next_state = S0_GET_DATA;
+      end
+
+      default: begin
+        next_state = S0_GET_DATA;
+      end
+    endcase
+  end
 
     always @(posedge clk) begin
         if (reset_n == 0) begin
@@ -36,48 +86,5 @@ module sniffer_fsm (
             state = next_state;
         end
     end
-
-    always @(posedge clk) begin
-        case (data_address_i[31:28])
-            s_0: begin
-                if (data_address_i[31:28] >= 4'h8)
-                    next_state = s_1;
-            end
-            s_1: next_state = s_2;
-            s_2: next_state = s_3;
-            s_3: next_state = s_0;
-            default: next_state = s_0;  // estado padrao no reset
-        endcase
-    end
-
-
-always @(state) begin
-    case (state)
-
-    s_0: begin
-        ena_1 = 0;
-        ena_2 = 0;
-    end
-
-    s_1: begin
-        ena_1 = 1;
-        ena_2 = 0;
-    end
-
-    s_2: begin
-        ena_1 = 0;
-        ena_2 = 1;
-    end
-
-    s_3: begin
-        ena_1 = 0;
-        ena_2 = 0;
-    end
-
-    endcase
-
-end
-
-
 
 endmodule

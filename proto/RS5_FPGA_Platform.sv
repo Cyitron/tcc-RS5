@@ -216,11 +216,10 @@ module RS5_FPGA_Platform
     .clk                    (clk),
     .reset_n                (reset_n),
     .enable_i               (enable_peripherals),
-    .mem_operation_enable_o (cpu_operation_enable),
     .write_enable_i         (cpu_write_enable),
     .data_address_i         (cpu_data_address),
     .data_i                 (cpu_data_out),
     .data_o                 (data_peripherals)
-);
+    );
 
 endmodule
