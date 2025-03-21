@@ -23,7 +23,8 @@ module sniffer(
         .get_data_ce    (get_data_ce),
         .gen_data_ce    (gen_data_ce),
         .new_data_ce    (new_data_ce),
-        .av_data        (av_data)
+        .av_data        (av_data),
+        .seletor_hab    (seletor_hab)
     );
 
     // Instanciação da FSM
@@ -36,7 +37,8 @@ module sniffer(
         .get_data_ce    (get_data_ce),
         .gen_data_ce    (gen_data_ce),
         .new_data_ce    (new_data_ce),
-        .av_data        (av_data)
+        .av_data        (av_data),
+        .seletor_hab    (seletor_hab)
     );
 
 endmodule

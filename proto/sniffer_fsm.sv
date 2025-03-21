@@ -5,6 +5,7 @@ module sniffer_fsm (
     output logic            gen_data_ce,  // Sinal para o datapath gerar o dado invertido
     output logic            new_data_ce,  // Sinal que indica que chegou um novo dado
     output logic            av_data,      // Sinal para avisar que o dado está pronto para leitura
+    output logic            seletor_hab,  // habilita o seletor
     input  logic [3:0]      write_enable_i,
     input  logic [31:0]     data_address_i,
     input  logic            enable_i
@@ -27,6 +28,7 @@ module sniffer_fsm (
     gen_data_ce = 0;
     new_data_ce = 0;
     av_data     = 0;
+    seletor_hab = 0;
     next_state  = state; // Por padrão, mantém o estado atual
 
     case (state)
@@ -55,12 +57,18 @@ module sniffer_fsm (
         // Enquanto o processador não confirmar a leitura, permanece em S2.
         // Aqui, assumimos que o processador sinaliza a leitura concluída
         // mudando o endereço para 32'h80000002 (ou outra condição definida).
-        if ((data_address_i == 32'h80000002) &&
+        if ((data_address_i == 32'h80000001) &&
             (write_enable_i != 4'b0000) &&
             (enable_i == 1))
-          next_state = S3_RESET;
+            seletor_hab = 0;
+            next_state = S3_RESET;
+        else if ((data_address_i == 32'h80000002) &&
+            (write_enable_i != 4'b0000) &&
+            (enable_i == 1)) // endereço que tem o bit de new_data_ce para o processador ler no endereço 32'h80000001
+            seletor_hab = 1;
+            next_state = S2_WAIT_READ;
         else
-          next_state = S2_WAIT_READ;
+            next_state = S2_WAIT_READ;
       end
 
       S3_RESET: begin
