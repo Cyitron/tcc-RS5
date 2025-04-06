@@ -155,60 +155,60 @@ module RS5_FPGA_Platform
 // RTC INSTANTIATION
 //////////////////////////////////////////////////////////////////////////////
 
-    rtc rtc(
-        .clk        (clk),
-        .reset_n    (reset_n),
-        .en_i       (enable_rtc),
-        .addr_i     (cpu_data_address[3:0]),
-        .we_i       ({4'h0, cpu_write_enable}),
-        .data_i     ({32'h0, cpu_data_out}),
-        .data_o     (data_rtc),
-        .mti_o      (mti),
-        .mtime_o    (mtime)
-    );
+//    rtc rtc(
+//        .clk        (clk),
+//        .reset_n    (reset_n),
+//        .en_i       (enable_rtc),
+//        .addr_i     (cpu_data_address[3:0]),
+//        .we_i       ({4'h0, cpu_write_enable}),
+//        .data_i     ({32'h0, cpu_data_out}),
+//        .data_o     (data_rtc),
+//        .mti_o      (mti),
+//        .mtime_o    (mtime)
+//    );
 
 //////////////////////////////////////////////////////////////////////////////
 // PLIC
 //////////////////////////////////////////////////////////////////////////////
 
-    plic #(
-        .i_cnt(i_cnt)
-    ) plic1 (
-        .clk     (clk),
-        .reset_n (reset_n),
-        .en_i    (enable_plic),
-        .we_i    (cpu_write_enable),
-        .addr_i  (cpu_data_address[23:0]),
-        .data_i  (cpu_data_out),
-        .data_o  (data_plic),
-        .irq_i   (irq_peripherals),
-        .iack_i  (interrupt_ack),
-        .irq_o   (mei),
-        .iack_o  (iack_peripherals)
-    );
+//    plic #(
+//        .i_cnt(i_cnt)
+//    ) plic1 (
+//        .clk     (clk),
+//        .reset_n (reset_n),
+//        .en_i    (enable_plic),
+//        .we_i    (cpu_write_enable),
+//        .addr_i  (cpu_data_address[23:0]),
+//        .data_i  (cpu_data_out),
+//        .data_o  (data_plic),
+//        .irq_i   (irq_peripherals),
+//        .iack_i  (interrupt_ack),
+//        .irq_o   (mei),
+//        .iack_o  (iack_peripherals)
+//    );
 
 //////////////////////////////////////////////////////////////////////////////
 // PERIPHERALS
 //////////////////////////////////////////////////////////////////////////////
 
-    Peripherals #(
-        .i_cnt(i_cnt),
-        .CLKS_PER_BIT_UART(CLKS_PER_BIT_UART)
-    ) Peripherals1 (
-        .clk            (clk),
-        .reset_n        (reset_n),
-        .stall_o        (stall),
-        .enable_i       (enable_peripherals),
-        .write_enable_i (cpu_write_enable),
-        .data_address_i (cpu_data_address),
-        .data_i         (cpu_data_out),
-        .data_o         (data_peripherals),
-        .BTND           (BTND),
-        .UART_TX        (UART_TX),
-        .UART_RX        (UART_RX),
-        .interrupt_req_o(irq_peripherals),
-        .interrupt_ack_i(iack_peripherals)
-    );
+//    Peripherals #(
+//        .i_cnt(i_cnt),
+//        .CLKS_PER_BIT_UART(CLKS_PER_BIT_UART)
+//    ) Peripherals1 (
+//        .clk            (clk),
+//        .reset_n        (reset_n),
+//        .stall_o        (stall),
+//        .enable_i       (enable_peripherals),
+//        .write_enable_i (cpu_write_enable),
+//        .data_address_i (cpu_data_address),
+//        .data_i         (cpu_data_out),
+//        .data_o         (data_peripherals),
+//        .BTND           (BTND),
+//        .UART_TX        (UART_TX),
+//        .UART_RX        (UART_RX),
+//        .interrupt_req_o(irq_peripherals),
+//        .interrupt_ack_i(iack_peripherals)
+//    );
 
 
     /* criação de Gabriel Lencina */
