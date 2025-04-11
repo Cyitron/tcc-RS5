@@ -69,8 +69,9 @@ module tb_sniffer;
 
     // Simula o processador lendo o dado pronto:
     // Para este teste, podemos alterar o data_address_i para o endereço que indica a leitura.
+    write_enable_i = 4'b0; // nao esta ecrevendo e sim lendo
     data_address_i = 32'h80000002;   // exemplo de endereço que sinaliza a leitura concluída
-    #1;
+    #10;
     $display("Data ready  : 0x%h", data_o);
 
 

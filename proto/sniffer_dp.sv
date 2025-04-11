@@ -16,7 +16,7 @@ module sniffer_dp (
     logic [31:0] data_ready;    // sinaliza que o dado está pronto
 
     // Captura do dado quando get_data_ce estiver ativo
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk, negedge reset_n) begin
         if (reset_n == 0)
             data_cpu_in <= 32'b0;
         else if (get_data_ce)
@@ -25,16 +25,17 @@ module sniffer_dp (
     end
 
     // Geração do dado invertido quando gen_data_ce estiver ativo
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk, negedge reset_n) begin
         if (reset_n == 0)
             new_data <= 32'b0;
-        else if (gen_data_ce)
+        else 
+        if (gen_data_ce)
             new_data <= ~data_cpu_in;
         // Caso contrário, mantém o valor
     end
 
     // flip-flop data_avaiable
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk, negedge reset_n) begin
         if (reset_n == 0)
             data_ready <= 32'b0;
         else if (new_data_ce)
@@ -47,10 +48,11 @@ module sniffer_dp (
     // Multiplexador para selecionar a saída
     // Se av_data estiver ativo, envia o dado invertido; caso contrário, envia uma sequência padrão (aqui 32'b0).
     always_comb begin
+        data_o = 32'h0; // valor default (importante)
         if (seletor_hab)
             data_o = data_ready;
         else
-            data_o = new_data;
+        data_o = new_data;
     end
 
 endmodule

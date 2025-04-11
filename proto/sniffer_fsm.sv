@@ -19,7 +19,7 @@ module sniffer_fsm (
       S3_RESET      // Estado que reseta a sinalização de dado pronto
   } state_t;
 
-  state_t state, next_state;
+  state_t state = S0_GET_DATA, next_state;
 
   // Bloco combinacional para calcular o próximo estado e gerar as saídas
   always_comb begin
@@ -58,13 +58,13 @@ module sniffer_fsm (
         // Aqui, assumimos que o processador sinaliza a leitura concluída
         // mudando o endereço para 32'h80000002 (ou outra condição definida).
         if ((data_address_i == 32'h80000001) &&
-            (write_enable_i != 4'b0000) &&
+            (write_enable_i == 4'b0000) &&
             (enable_i == 1)) begin
             seletor_hab = 0;
             next_state = S3_RESET;
         end
         else if ((data_address_i == 32'h80000002) &&
-            (write_enable_i != 4'b0000) &&
+            (write_enable_i == 4'b0000) &&
             (enable_i == 1)) begin// endereço que tem o bit de new_data_ce para o processador ler no endereço 32'h80000001
             seletor_hab = 1;
             next_state = S2_WAIT_READ;
