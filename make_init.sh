@@ -4,7 +4,7 @@
 set -e
 
 # Navegar para o diretório do projeto
-cd app/hello/
+cd app/write_peripheral/
 
 # Limpar e compilar o projeto
 make clean
