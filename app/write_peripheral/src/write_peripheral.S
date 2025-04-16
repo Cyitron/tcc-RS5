@@ -1,61 +1,63 @@
-.section .init
-.global _start
-
-/* Duvidas
-O tamanho dos bits serem 32, não precisamos delimitar isso aqui?
-
-A gente não vai salvar na memória os dados devolvidos pelo periférico? nem os dados que enviamos?
-
-falta mais alguma coisa no código? ele está correto?
-
-como faço o test_bench agora com o código do processador e do periférico? já que o processador tem software e o periférico é só hardware
-
-
-
-*/
-
-_start:
-    # Configure system status MPP=0, MPIE=0, MIE=0
-	csrw	mstatus, zero
-
-	# Mask interrupts
-	csrw	mie, zero
-
-	# Clear pending interrupts
-	csrw	mip, zero
-
-    # Set stack to top of data memory
-	li		sp, MEM_SIZE
-
-    jal main
-
-.end:
-    li  t0, 0x80000000
-    sw	zero, 0(t0)     # End simulation
-	j   .end
-
-.section .text
+.text
 main:
-    li t0, 0          # valor a enviar
-    li t1, 1000       # limite
-    jal loop_peripheral
+    li t0, 0          		# valor a enviar
+    li t1, 1000       		# limite
+    j loop_peripheral
+    ret
 
 loop_peripheral:
-    slt t2, t0, 1000
+    slti t2, t0, 1000
     beq t2, zero, end
-    li t2, 0x80000003
+    la t2, endperifwrite
+    lw t2, 0(t2)
+    # li t2, endperifwrite # escrita do periferico
     sw t0, 0(t2)
-    jal loop_leitura
+    jal perif
+    j loop_leitura
+    j end
 
 loop_leitura:
-    li t2, 0x80000002
+    la t2, endperifenable
+    lw t2, 0(t2)
+    # li t2, endperifenable
     lw t3, 0(t2)
-    beq zero, t3, loop_leitura; # if zero == t3 loop_leitura
-    li t2, 0x80000001
+    beq t3, zero, loop_leitura # if zero == t3 loop_leitura
+    la t2, endperifread
+    lw t2, 0(t2)
+    # li t2, endperifread
     lw t3, 0(t2)              
 
-    not t5, t0                # espera ~t0
-    bne t3, t5, end           # se resposta não for correta, fim com erro
+    not t4, t0                	# espera ~t0
+    bne t3, t4, end           	# se resposta não for correta, fim com erro
 
-    addi t0, t0, 1            # próximo valor
-    jal loop_peripheral
+    addi t0, t0, 1            	# próximo valor
+    j loop_peripheral
+
+end:
+    li  t0, 0x80000000		
+    sw	zero, 0(t0)     	# End simulation
+	j   end
+	
+perif:
+    la s0, dataperifwrite
+    lw s0, 0(s0)
+    not s0, s0
+    la s1, endperifread
+    lw s1, 0(s1)
+    sw s0, 0(s1)
+    la s2, endperifenable
+    lw s2, 0(s2)
+    li s3, 1
+    sw s3, 0(s2)
+    ret
+	
+.data
+endperifwrite: 		.word	0x10010020 # endereco usado no riscv para escrever no periferico 		0x80000003
+endperifread:		.word	0x10010024 # endereco usado no riscv para ler no periferico 			0x80000001
+endperifenable: 	.word	0x10010028 # endero usado no riscv para sinalizar dado pronto pra leitura 	0x80000002
+
+.space 20
+dataperifwrite: 	.word	0
+dataperifread:		.word	0
+dataperifenable: 	.word 	0
+

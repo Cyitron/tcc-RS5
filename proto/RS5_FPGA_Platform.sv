@@ -19,9 +19,9 @@ module RS5_FPGA_Platform
 (
     input  logic       clk,
     input  logic       reset_n,
-    input  logic       BTND,
-    input  logic       UART_RX,
-    output logic       UART_TX
+    // input  logic       BTND,
+    // input  logic       UART_RX,
+    // output logic       UART_TX
 );
     logic [31:0]            cpu_instruction_address, cpu_instruction;
     logic [31:0]            cpu_data_address, cpu_data_in, cpu_data_out;
