@@ -18,7 +18,7 @@ module RS5_FPGA_Platform
 )
 (
     input  logic       clk,
-    input  logic       reset_n,
+    input  logic       reset_n
     // input  logic       BTND,
     // input  logic       UART_RX,
     // output logic       UART_TX
