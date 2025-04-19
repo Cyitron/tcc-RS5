@@ -14,7 +14,7 @@ make
 cd ../../proto
 
 # Inicializar a memória com o binário gerado
-./init_mem.py ../app/hello/hello.bin
+./init_mem.py ../app/write_peripheral/write_peripheral.bin
 
 # Retornar ao diretório original
 cd ../
