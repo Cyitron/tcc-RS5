@@ -38,7 +38,7 @@ end:
 	j   end
 	
 perif:
-    la s0, dataperifwrite
+    la s0, endperifwrite
     lw s0, 0(s0)
     not s0, s0
     la s1, endperifread
@@ -51,8 +51,8 @@ perif:
     ret
 	
 .data
-endperifwrite: 		.word	0x80000003 # endereco usado no riscv para escrever no periferico 		0x80000003
-endperifread:		.word	0x80000001 # endereco usado no riscv para ler no periferico 			0x80000001
+endperifwrite: 		.word	0x80000003 # endereco usado no riscv para escrever no periferico 		    0x80000003
+endperifread:		.word	0x80000001 # endereco usado no riscv para ler no periferico 			    0x80000001
 endperifenable: 	.word	0x80000002 # endero usado no riscv para sinalizar dado pronto pra leitura 	0x80000002
 
 .space 20
