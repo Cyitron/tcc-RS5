@@ -6,30 +6,161 @@
 
 module processor_peripheral
     import RS5_pkg::*;
-(
+#(
+    parameter int           i_cnt       = 2,
+    parameter environment_e Environment = FPGA,
+    parameter mul_e         MULEXT      = MUL_M,
+    parameter atomic_e      AMOEXT      = AMO_A,
+    parameter bit           COMPRESSED  = 1'b1,
+    parameter bit           XOSVMEnable = 1'b0,
+    parameter bit           ZIHPMEnable = 1'b0,
+    parameter bit           ZKNEEnable  = 1'b0,
+    parameter bit           VEnable     = 1'b0,
+    parameter bit           BRANCHPRED  = 1'b1,
+    parameter int           VLEN        = 64
 
 );
-    localparam int              i_cnt = 2;
     logic                       clk, reset_n;
+    logic enable_i;
+    logic [3:0] write_enable_i;
+    logic [31:0] data_address_i;
+    logic [31:0] data_i;
+    logic [31:0] data_o;
+    logic [31:0]            cpu_instruction_address, cpu_instruction;
+    logic [31:0]            cpu_data_address, cpu_data_in, cpu_data_out;
+    logic                   cpu_operation_enable, enable_ram, enable_peripherals, enable_rtc, enable_plic;
+    logic                   enable_rtc_r, enable_plic_r, enable_peripherals_r;
+    logic [63:0]            mtime;
+    logic [31:0]            data_bram, data_plic, data_peripherals;
+    logic [63:0]            data_rtc;
+    logic [3:0]             cpu_write_enable;
+    logic                   stall;
+    logic                   mei, mti;
+    logic                   interrupt_ack;
+    logic [31:0]            irq;
+    logic [i_cnt:1]         irq_peripherals, iack_peripherals;
 
-    RS5_FPGA_Platform #(
-        .i_cnt      (i_cnt),
-        .CLKS_PER_BIT_UART(5)
+    assign irq = {20'h0, mei, 3'h0, mti, 7'h0};
+    
+    always_comb begin
+        if (cpu_operation_enable) begin
+            if (cpu_data_address[31:28] < 4'h2) begin // primeiros 512MB
+                enable_ram          = 1'b1;
+                enable_rtc          = 1'b0;
+                enable_plic         = 1'b0;
+                enable_peripherals  = 1'b0;
+            end
+            else if (cpu_data_address[31:28] < 4'h3) begin // 512MB
+                enable_ram          = 1'b0;
+                enable_rtc          = 1'b1;
+                enable_plic         = 1'b0;
+                enable_peripherals  = 1'b0;
+            end
+            else if (cpu_data_address[31:28] < 4'h8) begin // 1GB
+                enable_ram          = 1'b0;
+                enable_rtc          = 1'b0;
+                enable_plic         = 1'b1;
+                enable_peripherals  = 1'b0;
+            end
+            else /*if (cpu_data_address[31:28] >= 4'h8)*/ begin // 2GB 
+                enable_ram          = 1'b0;
+                enable_rtc          = 1'b0;
+                enable_plic         = 1'b0;
+                enable_peripherals  = 1'b1;
+            end
+        end
+        else begin
+            enable_ram          = 1'b0;
+            enable_rtc          = 1'b0;
+            enable_plic         = 1'b0;
+            enable_peripherals  = 1'b0;
+        end
+    end
+
+    always_ff @(posedge clk) begin
+        enable_rtc_r            <= enable_rtc;
+        enable_plic_r           <= enable_plic;
+        enable_peripherals_r    <= enable_peripherals;
+    end
+
+    always_comb begin
+        if (enable_rtc_r) begin
+            cpu_data_in = data_rtc[31:0];
+        end
+        else if (enable_plic_r) begin
+            cpu_data_in = data_plic;
+        end
+        else if (enable_peripherals_r) begin
+            cpu_data_in = data_peripherals;
+        end
+        else begin
+            cpu_data_in = data_bram;
+        end
+    end
+    
+    RS5 #(
+        .Environment    (Environment),
+        .MULEXT         (MULEXT),
+        .AMOEXT         (AMOEXT),
+        .XOSVMEnable    (XOSVMEnable),
+        .ZIHPMEnable    (ZIHPMEnable),
+        .ZKNEEnable     (ZKNEEnable),
+        .COMPRESSED     (COMPRESSED),
+        .VEnable        (VEnable),
+        .VLEN           (VLEN),
+        .BRANCHPRED     (BRANCHPRED)
     ) dut (
-        .clk        (clk), 
-        .reset_n    (reset_n)
+        .clk                    (clk),
+        .reset_n                (reset_n),
+        .sys_reset_i            (1'b0),
+        .stall                  (stall),
+        .instruction_i          (cpu_instruction),
+        .mem_data_i             (cpu_data_in),
+        .mtime_i                (mtime),
+        .irq_i                  (irq),
+        .instruction_address_o  (cpu_instruction_address),
+        .mem_operation_enable_o (cpu_operation_enable),
+        .mem_write_enable_o     (cpu_write_enable),
+        .mem_address_o          (cpu_data_address),
+        .mem_data_o             (cpu_data_out),
+        .interrupt_ack_o        (interrupt_ack)
+    );
+    
+    // Instanciação do periférico sniffer
+    sniffer Sniffer1 (
+        .clk            (clk),
+        .reset_n        (reset_n),
+        .enable_i       (enable_i),
+        .write_enable_i (write_enable_i),
+        .data_address_i (data_address_i),
+        .data_i         (data_i),
+        .data_o         (data_o)
+    );
+    
+    BRAM RAM (
+        .clka   (clk),                      // input wire clka
+        .ena    (!stall),                   // input wire ena
+        .wea    (4'h0),                     // input wire [3 : 0] wea
+        .addra  (cpu_instruction_address),  // input wire [31 : 0] addra
+        .dina   (0),                        // input wire [31 : 0] dina
+        .douta  (cpu_instruction),          // output wire [31 : 0] douta
+        //////////////////////////////////////////////////////
+        .clkb   (clk),                      // input wire clkb
+        .enb    (enable_ram),               // input wire enb
+        .web    (cpu_write_enable),         // input wire [3 : 0] web
+        .addrb  (cpu_data_address),         // input wire [31 : 0] addrb
+        .dinb   (cpu_data_out),             // input wire [31 : 0] dinb
+        .doutb  (data_bram)                 // output wire [31 : 0] doutb
     );
 
-    
-
     initial begin
-        clk = 0;
+        clk = 1;
         forever #5 clk = ~clk;
     end
 
     initial begin
     reset_n = 0;
-    #20;
+    #200;
     reset_n = 1;
     end
 

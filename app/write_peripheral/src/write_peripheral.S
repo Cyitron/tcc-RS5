@@ -14,7 +14,6 @@ loop_peripheral:
     sw t0, 0(t2)
     jal perif
     j loop_leitura
-    j end
 
 loop_leitura:
     la t2, endperifenable

@@ -3,78 +3,98 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="tb_sniffer_behav.wdb" id="1">
+      <db_ref path="processor_peripheral_behav.wdb" id="1">
          <top_modules>
+            <top_module name="RS5_pkg" />
             <top_module name="glbl" />
-            <top_module name="tb_sniffer" />
+            <top_module name="processor_peripheral" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="64.103 ns"></ZoomEndTime>
-      <Cursor1Time time="100.000 ns"></Cursor1Time>
+      <ZoomEndTime time="28.401 ns"></ZoomEndTime>
+      <Cursor1Time time="10,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="266"></NameColumnWidth>
+      <NameColumnWidth column_width="256"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="14" />
-   <wvobject fp_name="/tb_sniffer/reset_n" type="logic">
-      <obj_property name="ElementShortName">reset_n</obj_property>
-      <obj_property name="ObjectShortName">reset_n</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_sniffer/clk" type="logic">
+   <WVObjectSize size="19" />
+   <wvobject fp_name="/processor_peripheral/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/enable_i" type="logic">
-      <obj_property name="ElementShortName">enable_i</obj_property>
-      <obj_property name="ObjectShortName">enable_i</obj_property>
+   <wvobject fp_name="/processor_peripheral/reset_n" type="logic">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/write_enable_i" type="array">
+   <wvobject fp_name="/processor_peripheral/write_enable_i" type="array">
       <obj_property name="ElementShortName">write_enable_i[3:0]</obj_property>
       <obj_property name="ObjectShortName">write_enable_i[3:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/data_address_i" type="array">
+   <wvobject fp_name="/processor_peripheral/data_address_i" type="array">
       <obj_property name="ElementShortName">data_address_i[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_address_i[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/data_i" type="array">
+   <wvobject fp_name="/processor_peripheral/data_i" type="array">
       <obj_property name="ElementShortName">data_i[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_i[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/data_o" type="array">
+   <wvobject fp_name="/processor_peripheral/data_o" type="array">
       <obj_property name="ElementShortName">data_o[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_o[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/Sniffer1/get_data_ce" type="logic">
-      <obj_property name="ElementShortName">get_data_ce</obj_property>
-      <obj_property name="ObjectShortName">get_data_ce</obj_property>
+   <wvobject fp_name="/processor_peripheral/cpu_instruction_address" type="array">
+      <obj_property name="ElementShortName">cpu_instruction_address[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_instruction_address[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/Sniffer1/sniffer_fsm_inst/next_state" type="array">
-      <obj_property name="ElementShortName">next_state[1:0]</obj_property>
-      <obj_property name="ObjectShortName">next_state[1:0]</obj_property>
+   <wvobject fp_name="/processor_peripheral/cpu_instruction" type="array">
+      <obj_property name="ElementShortName">cpu_instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_instruction[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/Sniffer1/sniffer_fsm_inst/state" type="array">
-      <obj_property name="ElementShortName">state[1:0]</obj_property>
-      <obj_property name="ObjectShortName">state[1:0]</obj_property>
+   <wvobject fp_name="/processor_peripheral/dut/instruction_i" type="array">
+      <obj_property name="ElementShortName">instruction_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction_i[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/Sniffer1/gen_data_ce" type="logic">
-      <obj_property name="ElementShortName">gen_data_ce</obj_property>
-      <obj_property name="ObjectShortName">gen_data_ce</obj_property>
+   <wvobject fp_name="/processor_peripheral/cpu_data_address" type="array">
+      <obj_property name="ElementShortName">cpu_data_address[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_data_address[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/Sniffer1/new_data_ce" type="logic">
-      <obj_property name="ElementShortName">new_data_ce</obj_property>
-      <obj_property name="ObjectShortName">new_data_ce</obj_property>
+   <wvobject fp_name="/processor_peripheral/cpu_data_in" type="array">
+      <obj_property name="ElementShortName">cpu_data_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_data_in[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/Sniffer1/av_data" type="logic">
-      <obj_property name="ElementShortName">av_data</obj_property>
-      <obj_property name="ObjectShortName">av_data</obj_property>
+   <wvobject fp_name="/processor_peripheral/cpu_data_out" type="array">
+      <obj_property name="ElementShortName">cpu_data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_data_out[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_sniffer/Sniffer1/seletor_hab" type="logic">
-      <obj_property name="ElementShortName">seletor_hab</obj_property>
-      <obj_property name="ObjectShortName">seletor_hab</obj_property>
+   <wvobject fp_name="/processor_peripheral/cpu_operation_enable" type="logic">
+      <obj_property name="ElementShortName">cpu_operation_enable</obj_property>
+      <obj_property name="ObjectShortName">cpu_operation_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/enable_peripherals" type="logic">
+      <obj_property name="ElementShortName">enable_peripherals</obj_property>
+      <obj_property name="ObjectShortName">enable_peripherals</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/cpu_write_enable" type="array">
+      <obj_property name="ElementShortName">cpu_write_enable[3:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_write_enable[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/mem_operation_enable_o" type="logic">
+      <obj_property name="ElementShortName">mem_operation_enable_o</obj_property>
+      <obj_property name="ObjectShortName">mem_operation_enable_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/mem_write_enable_o" type="array">
+      <obj_property name="ElementShortName">mem_write_enable_o[3:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_write_enable_o[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/mem_address_o" type="array">
+      <obj_property name="ElementShortName">mem_address_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_address_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/mem_data_o" type="array">
+      <obj_property name="ElementShortName">mem_data_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_data_o[31:0]</obj_property>
    </wvobject>
 </wave_config>
