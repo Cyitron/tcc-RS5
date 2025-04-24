@@ -22,17 +22,14 @@ module processor_peripheral
 );
     logic                       clk, reset_n;
     logic enable_i;
-    logic [3:0] write_enable_i;
-    logic [31:0] data_address_i;
-    logic [31:0] data_i;
-    logic [31:0] data_o;
     logic [31:0]            cpu_instruction_address, cpu_instruction;
     logic [31:0]            cpu_data_address, cpu_data_in, cpu_data_out;
     logic                   cpu_operation_enable, enable_ram, enable_peripherals, enable_rtc, enable_plic;
     logic                   enable_rtc_r, enable_plic_r, enable_peripherals_r;
     logic [63:0]            mtime;
-    logic [31:0]            data_bram, data_plic, data_peripherals;
+    logic [31:0]            data_bram;
     logic [63:0]            data_rtc;
+    logic [32:0]            data_plic;
     logic [3:0]             cpu_write_enable;
     logic                   stall;
     logic                   mei, mti;
@@ -88,7 +85,7 @@ module processor_peripheral
             cpu_data_in = data_rtc[31:0];
         end
         else if (enable_plic_r) begin
-            cpu_data_in = data_plic;
+            cpu_data_in = data_plic[31:0];
         end
         else if (enable_peripherals_r) begin
             cpu_data_in = data_peripherals;
@@ -130,11 +127,11 @@ module processor_peripheral
     sniffer Sniffer1 (
         .clk            (clk),
         .reset_n        (reset_n),
-        .enable_i       (enable_i),
-        .write_enable_i (write_enable_i),
-        .data_address_i (data_address_i),
-        .data_i         (data_i),
-        .data_o         (data_o)
+        .enable_i       (enable_peripherals_r),
+        .write_enable_i (cpu_write_enable),
+        .data_address_i (cpu_data_address),
+        .data_i         (cpu_data_out),
+        .data_o         (data_peripherals)
     );
     
     BRAM RAM (
@@ -158,6 +155,11 @@ module processor_peripheral
         forever #5 clk = ~clk;
     end
 
+    initial begin
+        stall = 0;
+    end
+    
+    
     initial begin
     reset_n = 0;
     #200;
