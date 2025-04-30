@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="28.401 ns"></ZoomEndTime>
-      <Cursor1Time time="10,000.000 ns"></Cursor1Time>
+      <ZoomStartTime time="257.375 ns"></ZoomStartTime>
+      <ZoomEndTime time="280.526 ns"></ZoomEndTime>
+      <Cursor1Time time="320.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="256"></NameColumnWidth>
-      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+      <NameColumnWidth column_width="287"></NameColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="19" />
+   <WVObjectSize size="18" />
    <wvobject fp_name="/processor_peripheral/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -28,22 +28,6 @@
    <wvobject fp_name="/processor_peripheral/reset_n" type="logic">
       <obj_property name="ElementShortName">reset_n</obj_property>
       <obj_property name="ObjectShortName">reset_n</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_peripheral/write_enable_i" type="array">
-      <obj_property name="ElementShortName">write_enable_i[3:0]</obj_property>
-      <obj_property name="ObjectShortName">write_enable_i[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_peripheral/data_address_i" type="array">
-      <obj_property name="ElementShortName">data_address_i[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_address_i[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_peripheral/data_i" type="array">
-      <obj_property name="ElementShortName">data_i[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_i[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_peripheral/data_o" type="array">
-      <obj_property name="ElementShortName">data_o[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_o[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/processor_peripheral/cpu_instruction_address" type="array">
       <obj_property name="ElementShortName">cpu_instruction_address[31:0]</obj_property>
@@ -53,9 +37,21 @@
       <obj_property name="ElementShortName">cpu_instruction[31:0]</obj_property>
       <obj_property name="ObjectShortName">cpu_instruction[31:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/instruction_operation_execute" type="array">
+      <obj_property name="ElementShortName">instruction_operation_execute[56:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction_operation_execute[56:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/processor_peripheral/dut/instruction_i" type="array">
       <obj_property name="ElementShortName">instruction_i[31:0]</obj_property>
       <obj_property name="ObjectShortName">instruction_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/stall" type="logic">
+      <obj_property name="ElementShortName">stall</obj_property>
+      <obj_property name="ObjectShortName">stall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/write_enable_i" type="array">
+      <obj_property name="ElementShortName">write_enable_i[3:0]</obj_property>
+      <obj_property name="ObjectShortName">write_enable_i[3:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/processor_peripheral/cpu_data_address" type="array">
       <obj_property name="ElementShortName">cpu_data_address[31:0]</obj_property>
