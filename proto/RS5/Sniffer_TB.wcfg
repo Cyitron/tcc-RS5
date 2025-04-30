@@ -12,15 +12,20 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="9,831.814 ns"></ZoomStartTime>
-      <ZoomEndTime time="9,894.909 ns"></ZoomEndTime>
-      <Cursor1Time time="10,000.000 ns"></Cursor1Time>
+      <ZoomStartTime time="193.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="216.201 ns"></ZoomEndTime>
+      <Cursor1Time time="274.400 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="283"></NameColumnWidth>
+      <NameColumnWidth column_width="278"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="23" />
+   <WVObjectSize size="33" />
+   <wave_markers>
+      <marker time="270100" label="" />
+      <marker time="280100" label="" />
+      <marker time="250000" label="" />
+   </wave_markers>
    <wvobject fp_name="/processor_peripheral/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -114,5 +119,54 @@
    <wvobject fp_name="/processor_peripheral/Sniffer1/data_address_i" type="array">
       <obj_property name="ElementShortName">data_address_i[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_address_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/sniffer_fsm_inst/state" type="array">
+      <obj_property name="ElementShortName">state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/sniffer_dp_inst/data_cpu_in" type="array">
+      <obj_property name="ElementShortName">data_cpu_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_cpu_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/sniffer_dp_inst/new_data" type="array">
+      <obj_property name="ElementShortName">new_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">new_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/seletor_hab" type="logic">
+      <obj_property name="ElementShortName">seletor_hab</obj_property>
+      <obj_property name="ObjectShortName">seletor_hab</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider206">
+      <obj_property name="label">Registradores</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/\RegFileFPGA_blk.RegBankA /inst/ram_data[7]" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[7][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[7][31:0]</obj_property>
+      <obj_property name="label">x7</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/\RegFileFPGA_blk.RegBankA /inst/ram_data[5]" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[5][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[5][31:0]</obj_property>
+      <obj_property name="label">x5</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/\RegFileFPGA_blk.RegBankA /inst/ram_data[28]" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[28][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[28][31:0]</obj_property>
+      <obj_property name="label">x28</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/\RegFileFPGA_blk.RegBankA /inst/ram_data[30]" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[30][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[30][31:0]</obj_property>
+      <obj_property name="label">x30</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/\RegFileFPGA_blk.RegBankA /inst/ram_data" type="array">
+      <obj_property name="ElementShortName">ram_data[31:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_data[31:0][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
 </wave_config>

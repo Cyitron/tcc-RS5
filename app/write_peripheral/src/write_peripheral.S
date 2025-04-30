@@ -1,5 +1,5 @@
 .text
-.globl main
+.global main
 
 main:
     li t0, 1              # Valor inicial a ser enviado

@@ -30,6 +30,7 @@ module processor_peripheral
     logic [31:0]            data_bram;
     logic [63:0]            data_rtc;
     logic [32:0]            data_plic;
+    logic [31:0]            data_peripherals;
     logic [3:0]             cpu_write_enable;
     logic                   stall;
     logic                   mei, mti;
