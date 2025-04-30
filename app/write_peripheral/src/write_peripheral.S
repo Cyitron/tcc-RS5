@@ -1,12 +1,12 @@
 .text
-.globl main
+.global main
 
 main:
     li t0, 1              # Valor inicial a ser enviado
     li t1, 1000           # Limite
 
 loop_peripheral:
-    bgt t0, t1, end       # Se t0 > 1000, vai para o fim
+    # bgt t0, t1, end       # Se t0 > 1000, vai para o fim
 
     # Escreve valor no periférico
     li t2, 0x80000003     # Endereço de escrita do periférico
