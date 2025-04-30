@@ -1,69 +1,78 @@
-        .text
+.text
 main:
-        li   t0, 1               # valor a enviar (começa em 1)
-        li   t1, 100            # limite (1000 iterações)
-        j    loop_peripheral
+    li t0, 0          		# valor a enviar (inicia em 0)
+    li t1, 1000       		# limite
+    j loop_peripheral
+    ret
 
 loop_peripheral:
-        # Se t0 > 1000, termina
-        bgt  t0, t1, end
+    slti t2, t0, 1000
+    beq t2, zero, end
 
-        # Escreve t0 no periférico
-        la   t2, endperifwrite
-        lw   t2, 0(t2)           # t2 = 0x80000003
-        sw   t0, 0(t2)
+    # --- Escreve dado no endereço real do periférico
+    la t2, endperifwrite
+    lw t2, 0(t2)
+    sw t0, 0(t2)
 
-        # Aguarda flag de dado pronto = 1
-loop_poll:
-        la   t2, endperifenable
-        lw   t2, 0(t2)           # t2 = 0x80000002
-        lw   t3, 0(t2)           # t3 = *0x80000002*
-        beq  t3, zero, loop_poll # se 0, continua aguardando
+    # --- Escreve também no registrador de simulação (Vivado)
+    la t2, dataperifwrite
+    sw t0, 0(t2)
 
-        # Lê o dado invertido
-        la   t2, endperifread
-        lw   t2, 0(t2)           # t2 = 0x80000001
-        lw   t3, 0(t2)           # t3 = *0x80000001*
+    # Chama a sub-rotina para simular periférico (pode ser ignorada em uso real)
+    jal perif
 
-        # Verifica se t3 == ~t0
-        not  t4, t0
-        bne  t3, t4, end         # se incorreto, sai com erro
+    j loop_leitura
 
-        # Prepara próxima iteração
-        addi t0, t0, 1
-        j    loop_peripheral
+loop_leitura:
+    # Verifica sinal de pronto (enable)
+    la t2, endperifenable
+    lw t2, 0(t2)
+    lw t3, 0(t2)
+    beq t3, zero, loop_leitura
+
+    # Lê o valor invertido do periférico
+    la t2, endperifread
+    lw t2, 0(t2)
+    lw t3, 0(t2)
+
+    # Em simulação, também lê valor de dataperifread
+    la t4, dataperifread
+    lw t3, 0(t4)  # sobrescreve com dado da memória simulado (caso esteja sendo usada)
+
+    not t4, t0
+    bne t3, t4, end  # se resposta não for correta, termina com erro
+
+    addi t0, t0, 1  # próximo valor
+    j loop_peripheral
 
 end:
-        # Sinaliza fim de simulação
-        li   t0, 0x80000000
-        sw   zero, 0(t0)
-        j    end
-
+    li  t0, 0x80000000
+    sw	zero, 0(t0)   # sinaliza fim da simulação (ambiente externo)
+	j   end
+	
+# --- Simula comportamento do periférico (somente em simulação)
 perif:
-        # Rotina que o “periférico” executa:
-        # lê valor em dataperifwrite, inverte, armazena em dataperifread e
-        # seta flag em dataperifenable
-        la   s0, dataperifwrite
-        lw   s0, 0(s0)
-        not  s0, s0
+    la s0, dataperifwrite
+    lw s0, 0(s0)
+    not s0, s0
 
-        la   s1, endperifread
-        lw   s1, 0(s1)
-        sw   s0, 0(s1)
+    la s1, dataperifread
+    sw s0, 0(s1)
 
-        la   s2, endperifenable
-        lw   s2, 0(s2)
-        li   s3, 1
-        sw   s3, 0(s2)
+    la s2, dataperifenable
+    li s3, 1
+    sw s3, 0(s2)
 
-        ret
+    ret
 
-        .data
-endperifwrite:   .word 0x80000003   # endereço de escrita do periférico
-endperifread:    .word 0x80000001   # endereço de leitura (inverso)
-endperifenable:  .word 0x80000002   # endereço da flag “data_ready”
+.data
+# Endereços reais mapeados na memória
+endperifwrite: 		.word	0x80000003
+endperifread:		.word	0x80000001
+endperifenable: 	.word	0x80000002
 
-        .space 20
-dataperifwrite:  .word 0
-dataperifread:   .word 0
-dataperifenable: .word 0
+# Espaço para simulação em memória (usado no Vivado)
+.space 20
+dataperifwrite: 	.word	0
+dataperifread:		.word	0
+dataperifenable: 	.word 	0
