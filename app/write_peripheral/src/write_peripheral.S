@@ -1,7 +1,7 @@
         .text
 main:
         li   t0, 1               # valor a enviar (começa em 1)
-        li   t1, 1000            # limite (1000 iterações)
+        li   t1, 100            # limite (1000 iterações)
         j    loop_peripheral
 
 loop_peripheral:
