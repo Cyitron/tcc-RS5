@@ -9,19 +9,22 @@ loop_peripheral:
     bgt t0, t1, end       # Se t0 > 1000, vai para o fim
 
     # Escreve valor no periférico
-    li t2, 0x80000003     # Endereço de escrita do periférico
+    la t2, dataread       # Carrega endereço da palavra
+    lw t2, 0(t2)          # t2 = 0x8000000c
     sw t0, 0(t2)
 
 wait_ready:
-    li t3, 0x80000002     # Endereço do bit de "dado pronto"
-    lw t4, 0(t3)
-    beq t4, zero, wait_ready   # Espera até o bit ser 1
+    la t3, dataenable     # Endereço do bit "data ready"
+    lw t3, 0(t3)          # t3 = 0x80000008
+    lw t4, 0(t3)          # lê valor nesse endereço
+    beq t4, zero, wait_ready   # Espera até bit ser 1
 
     # Lê valor invertido do periférico
-    li t5, 0x80000001     # Endereço de leitura do valor invertido
-    lw t6, 0(t5)
+    la t5, datainverse
+    lw t5, 0(t5)          # t5 = 0x80000004
+    lw t6, 0(t5)          # t6 = valor invertido lido
 
-    not t4, t0            # t4 = ~t0  (reutilizado)
+    not t4, t0            # t4 = ~t0
     bne t6, t4, end       # Se não bater com o invertido, termina (erro)
 
     addi t0, t0, 1        # Próximo valor
@@ -31,3 +34,8 @@ end:
     li  t0, 0x80000000    # Sinaliza fim da simulação
     sw  zero, 0(t0)
     j   end
+
+.data
+dataread:     .word   0x8000000c
+dataenable:   .word   0x80000008
+datainverse:  .word   0x80000004
