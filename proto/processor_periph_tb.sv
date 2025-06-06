@@ -163,7 +163,7 @@ module processor_peripheral
     
     initial begin
     reset_n = 0;
-    #200;
+    #500;
     reset_n = 1;
     end
 
