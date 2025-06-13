@@ -1,10 +1,11 @@
-.text
+.section .init
 .global main
 
 main:
     li t0, 1              # Valor inicial a ser enviado
     li t1, 1000           # Limite
 
+.text
 loop_peripheral:
     bgt t0, t1, end       # Se t0 > 1000, vai para o fim
 
