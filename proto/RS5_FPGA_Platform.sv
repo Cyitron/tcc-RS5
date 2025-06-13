@@ -213,10 +213,10 @@ module RS5_FPGA_Platform
 
     /* HALT 32'h80000000 ao chamar ret
      https://github.com/gaph-pucrs/RS5/tree/master/app/fibonacci-asm
-     https://github.com/gaph-pucrs/RS5/tree/master/app/UART_RX *\
+     https://github.com/gaph-pucrs/RS5/tree/master/app/UART_RX */
 
     /* criação de Gabriel Lencina */
-    sniffer Sniffer1(
+    sniffer  Sniffer1(
     .clk                    (clk),
     .reset_n                (reset_n),
     .enable_i               (enable_peripherals),
