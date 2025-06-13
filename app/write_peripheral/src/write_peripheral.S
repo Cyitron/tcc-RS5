@@ -1,11 +1,30 @@
 .section .init
-.global main
+.global _start
+_start:
+    # Configure system status MPP=0, MPIE=0, MIE=0
+	csrw	mstatus, zero
 
+	# Mask interrupts
+	csrw	mie, zero
+
+	# Clear pending interrupts
+	csrw	mip, zero
+
+    # Set stack to top of data memory
+	li		sp, MEM_SIZE
+
+    jal main
+
+.end:
+    li  t0, 0x80000000
+    sw	zero, 0(t0)     # End simulation
+	j   .end
+
+.text
 main:
     li t0, 1              # Valor inicial a ser enviado
     li t1, 1000           # Limite
 
-.text
 loop_peripheral:
     bgt t0, t1, end       # Se t0 > 1000, vai para o fim
 
@@ -32,9 +51,7 @@ wait_ready:
     j loop_peripheral
 
 end:
-    li  t0, 0x80000000    # Sinaliza fim da simulação
-    sw  zero, 0(t0)
-    j   end
+    jr      ra
 
 .data
 dataread:     .word   0x8000000c
