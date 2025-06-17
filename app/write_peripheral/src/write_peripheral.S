@@ -22,16 +22,16 @@ _start:
 
 .text
 main:
-    li t0, 1              # Valor inicial a ser enviado
+    li s0, 1              # Valor inicial a ser enviado
     li t1, 1000           # Limite
 
 loop_peripheral:
-    bgt t0, t1, end       # Se t0 > 1000, vai para o fim
+    bgt s0, t1, end       # Se s0 > 1000, vai para o fim
 
     # Escreve valor no periférico
     la t2, dataread       # Carrega endereço da palavra
     lw t2, 0(t2)          # t2 = 0x8000000c
-    sw t0, 0(t2)
+    sw s0, 0(t2)
 
 wait_ready:
     la t3, dataenable     # Endereço do bit "data ready"
@@ -44,10 +44,10 @@ wait_ready:
     lw t5, 0(t5)          # t5 = 0x80000004
     lw t6, 0(t5)          # t6 = valor invertido lido
 
-    not t4, t0            # t4 = ~t0
+    not t4, s0            # t4 = ~s0
     bne t6, t4, end       # Se não bater com o invertido, termina (erro)
 
-    addi t0, t0, 1        # Próximo valor
+    addi s0, s0, 1        # Próximo valor
     j loop_peripheral
 
 end:
