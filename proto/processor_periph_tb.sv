@@ -153,7 +153,7 @@ module processor_peripheral
 
     initial begin
         clk = 1;
-        forever #5 clk = ~clk;
+        forever #10 clk = ~clk;
     end
 
     initial begin
@@ -163,7 +163,7 @@ module processor_peripheral
     
     initial begin
     reset_n = 0;
-    #500;
+    #200;
     reset_n = 1;
     end
 

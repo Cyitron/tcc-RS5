@@ -12,19 +12,21 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="69.418 ns"></ZoomEndTime>
-      <Cursor1Time time="973.809 ns"></Cursor1Time>
+      <ZoomStartTime time="368.720 ns"></ZoomStartTime>
+      <ZoomEndTime time="479.922 ns"></ZoomEndTime>
+      <Cursor1Time time="465.551 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="258"></NameColumnWidth>
+      <NameColumnWidth column_width="253"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="34" />
+   <WVObjectSize size="35" />
    <wave_markers>
       <marker time="270100" label="" />
       <marker time="280100" label="" />
       <marker time="250000" label="" />
+      <marker time="740619" label="" />
+      <marker time="420000" label="" />
    </wave_markers>
    <wvobject fp_name="/processor_peripheral/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -33,6 +35,10 @@
    <wvobject fp_name="/processor_peripheral/reset_n" type="logic">
       <obj_property name="ElementShortName">reset_n</obj_property>
       <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/dut/fetch1/pc_o" type="array">
+      <obj_property name="ElementShortName">pc_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_o[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/processor_peripheral/cpu_instruction" type="array">
       <obj_property name="ElementShortName">cpu_instruction[31:0]</obj_property>
