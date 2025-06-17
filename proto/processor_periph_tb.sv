@@ -125,10 +125,10 @@ module processor_peripheral
     );
     
     // Instanciação do periférico sniffer
-    sniffer Sniffer1 (
+    sniffer    Sniffer1 (
         .clk            (clk),
         .reset_n        (reset_n),
-        .enable_i       (enable_peripherals_r),
+        .enable_i       (enable_peripherals),
         .write_enable_i (cpu_write_enable),
         .data_address_i (cpu_data_address),
         .data_i         (cpu_data_out),
@@ -153,7 +153,7 @@ module processor_peripheral
 
     initial begin
         clk = 1;
-        forever #5 clk = ~clk;
+        forever #10 clk = ~clk;
     end
 
     initial begin
@@ -163,12 +163,8 @@ module processor_peripheral
     
     initial begin
     reset_n = 0;
-    #500;
+    #200;
     reset_n = 1;
     end
 
-//    always_ff @(posedge clk) begin
-//        if ((write_enable_i != 0) && (enable_peripherals == 1) && (cpu_data_address == 32'h80000003)) // Simply checks if A equals B
-//        assert (cpu_data_address != 1000) $display ("O contador chegou a 1000");
-//    end
 endmodule

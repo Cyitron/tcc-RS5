@@ -13,14 +13,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,265.858 ns"></ZoomEndTime>
+      <ZoomEndTime time="1,000.000 ns"></ZoomEndTime>
       <Cursor1Time time="1,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="242"></NameColumnWidth>
-      <ValueColumnWidth column_width="101"></ValueColumnWidth>
+      <ValueColumnWidth column_width="81"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="7" />
    <wvobject fp_name="/processor_peripheral/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -29,28 +29,24 @@
       <obj_property name="ElementShortName">reset_n</obj_property>
       <obj_property name="ObjectShortName">reset_n</obj_property>
    </wvobject>
-   <wvobject fp_name="/processor_peripheral/enable_i" type="logic">
+   <wvobject type="divider" fp_name="divider938">
+      <obj_property name="label">topo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/enable_i" type="logic">
       <obj_property name="ElementShortName">enable_i</obj_property>
       <obj_property name="ObjectShortName">enable_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/processor_peripheral/cpu_data_address" type="array">
-      <obj_property name="ElementShortName">cpu_data_address[31:0]</obj_property>
-      <obj_property name="ObjectShortName">cpu_data_address[31:0]</obj_property>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/data_i" type="array">
+      <obj_property name="ElementShortName">data_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_i[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/processor_peripheral/cpu_data_in" type="array">
-      <obj_property name="ElementShortName">cpu_data_in[31:0]</obj_property>
-      <obj_property name="ObjectShortName">cpu_data_in[31:0]</obj_property>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/data_o" type="array">
+      <obj_property name="ElementShortName">data_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_o[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/processor_peripheral/cpu_data_out" type="array">
-      <obj_property name="ElementShortName">cpu_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">cpu_data_out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_peripheral/data_peripherals" type="array">
-      <obj_property name="ElementShortName">data_peripherals[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_peripherals[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/processor_peripheral/cpu_write_enable" type="array">
-      <obj_property name="ElementShortName">cpu_write_enable[3:0]</obj_property>
-      <obj_property name="ObjectShortName">cpu_write_enable[3:0]</obj_property>
+   <wvobject fp_name="/processor_peripheral/Sniffer1/write_enable_i" type="array">
+      <obj_property name="ElementShortName">write_enable_i[3:0]</obj_property>
+      <obj_property name="ObjectShortName">write_enable_i[3:0]</obj_property>
    </wvobject>
 </wave_config>
