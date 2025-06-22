@@ -44,14 +44,14 @@ wait_ready:
     lw t5, 0(t5)          # t5 = 0x80000004
     lw t6, 0(t5)          # t6 = valor invertido lido
 
-    not t5, s0            # t4 = ~s0
-    bne t6, t5, end       # Se não bater com o invertido, termina (erro)
+    not t4, s0            # t4 = ~s0
+    bne t6, t4, end       # Se não bater com o invertido, termina (erro)
 
     addi s0, s0, 1        # Próximo valor
     j loop_peripheral
 
 end:
-    jr      ra
+    jr  ra
 
 .data
 dataread:     .word   0x8000000c

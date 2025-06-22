@@ -56,7 +56,7 @@ module sniffer_fsm (
       S2_WAIT_READ: begin
         // Enquanto o processador não confirmar a leitura, permanece em S2.
         // Aqui, assumimos que o processador sinaliza a leitura concluída
-        // mudando o endereço para 32'h80000002 (ou outra condição definida).
+        // mudando o endereço para 32'h80000004 (ou outra condição definida).
         if ((data_address_i == 32'h80000004) &&
             (write_enable_i == 4'b0000) &&
             (enable_i == 1)
@@ -67,7 +67,7 @@ module sniffer_fsm (
         else if ((data_address_i == 32'h80000008) &&
             (write_enable_i == 4'b0000) &&
             (enable_i == 1)
-            ) begin// endereço que tem o bit de new_data_ce para o processador ler no endereço 32'h80000001
+            ) begin// endereço que tem o bit de new_data_ce para o processador ler no endereço 32'h80000008
             seletor_hab = 1;
             next_state = S2_WAIT_READ;
         end
