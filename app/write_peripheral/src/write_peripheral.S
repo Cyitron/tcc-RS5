@@ -16,9 +16,9 @@ _start:
     jal main
 
 .end:
-    li  t0, 0x80000000
-    sw	zero, 0(t0)     # End simulation
-	j   .end
+	li	s10, 0x80000000		# this will interrupt the simulation (assertion)
+	sw	zero, 0(s10)
+	jal zero, .end
 
 .text
 main:
